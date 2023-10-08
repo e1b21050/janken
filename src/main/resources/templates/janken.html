@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <title>Janken GAME!</title>
+  <title>じゃんけんアプリ</title>
 </head>
 
 <body>
   <h1>Janken GAME!</h1>
-  <p th:if="${not #strings.isEmpty(username)}" th:text="'Hi ' + ${username}" />
+  <p th:if="${username}" th:text="'Hi ' + ${username}" />
+  <a th:href="@{/jankengame(choice='Gu')}">ぐー</a>
+  <a th:href="@{/jankengame(choice='Ch')}">ちょき</a>
+  <a th:href="@{/jankengame(choice='Pa')}">ぱー</a>
+  <div th:if="${choice}">
+    <p th:text="'あなたの手 ' + ${choice}" />
+    <p th:text="'相手の手 ' + ${cpu_choice}" />
+    <p th:text="'結果 ' + ${result}" />
+    <p th:text="${cnt_game} + '戦中 ' + ${cnt_win} + '勝 ' + ${cnt_lose} + '敗 ' + ${cnt_draw} + '引分'" />
+  </div>
 </body>
 
 </html>
