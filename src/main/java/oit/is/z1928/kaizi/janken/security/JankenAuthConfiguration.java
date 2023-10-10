@@ -13,7 +13,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class JankenAuthConfiguration {
-
   /**
    * 認可処理に関する設定（認証されたユーザがどこにアクセスできるか）
    *
@@ -41,7 +40,6 @@ public class JankenAuthConfiguration {
    */
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
-
     // ユーザ名，パスワード，ロールを指定してbuildする
     // このときパスワードはBCryptでハッシュ化されているため，{bcrypt}とつける
     // ハッシュ化せずに平文でパスワードを指定する場合は{noop}をつける
@@ -54,6 +52,7 @@ public class JankenAuthConfiguration {
         .password("{bcrypt}$2y$10$E2VcwndEzQxGzBCgxseN8er1Zv0CHfLf2rCbuXzG8E5dhOxgstR7W").roles("USER").build();
 
     // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
+
     return new InMemoryUserDetailsManager(user1, user2);
   }
 
