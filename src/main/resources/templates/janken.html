@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
-  <meta charset="UTF-8">
-  <title>じゃんけんアプリ</title>
+  <meta charset="utf-8">
+  <title>Janken</title>
 </head>
 
 <body>
+  <a href="/logout">ログアウト</a>
   <h1>Janken GAME!</h1>
+  <p>エントリー</p>
   <p th:if="${username}" th:text="'Hi ' + ${username}" />
   <a th:href="@{/jankengame(choice='Gu')}">ぐー</a>
   <a th:href="@{/jankengame(choice='Ch')}">ちょき</a>
   <a th:href="@{/jankengame(choice='Pa')}">ぱー</a>
-  <div th:if="${choice}">
+  <!--div th:if="${choice}">
     <p th:text="'あなたの手 ' + ${choice}" />
     <p th:text="'相手の手 ' + ${cpu_choice}" />
     <p th:text="'結果 ' + ${result}" />
     <p th:text="${cnt_game} + '戦中 ' + ${cnt_win} + '勝 ' + ${cnt_lose} + '敗 ' + ${cnt_draw} + '引分'" />
-  </div>
+  </div-->
 </body>
 
 </html>
