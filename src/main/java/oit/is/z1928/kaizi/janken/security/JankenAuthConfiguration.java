@@ -13,7 +13,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class JankenAuthConfiguration {
-
   /**
    * 認可処理に関する設定（認証されたユーザがどこにアクセスできるか）
    *
@@ -29,7 +28,7 @@ public class JankenAuthConfiguration {
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
-            .requestMatchers(AntPathRequestMatcher.antMatcher("/janken/**")).authenticated() // /sample3/以下は認証済みであること
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/janken/**")).authenticated() 
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()); // それ以外は全員アクセス可能
     return http.build();
   }
@@ -41,7 +40,6 @@ public class JankenAuthConfiguration {
    */
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
-
     // ユーザ名，パスワード，ロールを指定してbuildする
     // このときパスワードはBCryptでハッシュ化されているため，{bcrypt}とつける
     // ハッシュ化せずに平文でパスワードを指定する場合は{noop}をつける
