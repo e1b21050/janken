@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import oit.is.z1928.kaizi.janken.model.User;
 import oit.is.z1928.kaizi.janken.model.UserMapper;
+import oit.is.z1928.kaizi.janken.model.Match;
+import oit.is.z1928.kaizi.janken.model.MatchMapper;
 import oit.is.z1928.kaizi.janken.model.Janken;
 
 @Controller
 public class JankenController {
   @Autowired
   UserMapper userMapper;
+
+  @Autowired
+  MatchMapper matchMapper;
 
   private Janken janken = new Janken();
 
@@ -31,6 +36,8 @@ public class JankenController {
     model.addAttribute("username", loginUser);
     ArrayList<User> users = userMapper.selectAllByUsersName();
     model.addAttribute("users", users);
+    ArrayList<Match> matches = matchMapper.selectAllByMatchs();
+    model.addAttribute("matches", matches);
     return "janken";
   }
 
