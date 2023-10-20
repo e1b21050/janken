@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>Janken</title>
+</head>
+
+<body>
+  <a href="/logout">ログアウト</a>
+  <h1>Match</h1>
+  <h2>ほんだ vs CPU</h2>
+  <a th:href="@{/jankengame(choice='Gu')}">ぐー</a>
+  <a th:href="@{/jankengame(choice='Ch')}">ちょき</a>
+  <a th:href="@{/jankengame(choice='Pa')}">ぱー</a>
+
+</html>
