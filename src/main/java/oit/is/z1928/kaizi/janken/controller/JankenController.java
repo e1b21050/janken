@@ -41,19 +41,10 @@ public class JankenController {
     return "janken";
   }
 
-  /*
-   * @GetMapping("/jankengame")
-   * public String jankengamePage(@RequestParam("choice") String choice,
-   * ModelMap model) {
-   * janken.setUserChoice(choice);
-   * String cpuChoice = janken.randomHand();
-   * janken.setCpuChoice(cpuChoice);
-   * String result = janken.detResult(janken.getUserChoice(),
-   * janken.getCpuChoice());
-   * model.addAttribute("choice", janken.getUserChoice());
-   * model.addAttribute("cpu_choice", janken.getCpuChoice());
-   * model.addAttribute("result", result);
-   * return "janken";
-   * }
-   */
+  @GetMapping("/match")
+  public String MatchPage(@RequestParam("id") int user_id, ModelMap model) {
+    User users = userMapper.selectById(user_id);
+    model.addAttribute("users", users);
+    return "match";
+  }
 }
