@@ -9,16 +9,16 @@
 <body>
   <a href="/logout">ログアウト</a>
   <h1>Match</h1>
-  <h2>ほんだ vs CPU</h2>
+  <h2>ほんだ V.S. CPU</h2>
   <div>
     <a th:href="@{/fight(id=${users.id},hand='Gu')}">ぐー</a>
     <a th:href="@{/fight(id=${users.id},hand='Ch')}">ちょき</a>
     <a th:href="@{/fight(id=${users.id},hand='Pa')}">ぱー</a>
   </div>
   <div th:if="${match}">
-    <p th:text="'あなたの手 ' + ${user1Hand}" />
-    <p th:text="'相手の手 ' + ${user2Hand}" />
-    <p th:text="'結果 ' + ${result}">
+    <div th:text="'あなたの手 ' + ${user1Hand}" />
+    <div th:text="'相手の手 ' + ${user2Hand}" />
+    <div th:text="'結果 ' + ${result}" />
   </div>
   <a href="/janken">もどる</a>
 
