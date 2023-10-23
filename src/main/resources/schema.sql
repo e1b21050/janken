@@ -5,8 +5,8 @@ CREATE TABLE users (
 
 CREATE TABLE matches (
     id IDENTITY,
-    user1 INTEGER NOT NULL,
-    user2 INTEGER NOT NULL,
+    user1 INT,
+    user2 INT,
     user1Hand VARCHAR NOT NULL,
     user2Hand VARCHAR NOT NULL
 );

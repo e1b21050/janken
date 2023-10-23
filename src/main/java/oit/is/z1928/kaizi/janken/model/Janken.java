@@ -48,7 +48,7 @@ public class Janken {
         || (userChoice.equals("Ch") && cpuChoice.equals("Pa"))) {
       return "You Win!";
     } else if (userChoice.equals(cpuChoice)) {
-      return "Draw!";
+      return "Draw";
     }
     return "You Lose!";
   }
