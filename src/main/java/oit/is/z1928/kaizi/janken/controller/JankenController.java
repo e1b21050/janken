@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
+//import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +25,6 @@ public class JankenController {
 
   private Janken janken = new Janken();
 
-  /**
-   *
-   * @param model Thymeleafにわたすデータを保持するオブジェクト
-   * @param prin  ログインユーザ情報が保持されるオブジェクト
-   * @return
-   */
   @GetMapping("/janken")
   public String JankenPage(ModelMap model, Principal prin) {
     String loginUser = prin.getName();
@@ -42,9 +37,30 @@ public class JankenController {
   }
 
   @GetMapping("/match")
-  public String MatchPage(@RequestParam("id") int user_id, ModelMap model) {
-    User users = userMapper.selectById(user_id);
+  public String MatchPage(@RequestParam Integer id, ModelMap model) {
+    User users = userMapper.selectById(id);
     model.addAttribute("users", users);
+    return "match";
+  }
+
+  @GetMapping("/fight")
+  public String FightPage(@RequestParam Integer id, @RequestParam String hand, ModelMap model, Principal prin) {
+    User users = userMapper.selectById(id);
+    model.addAttribute("users", users);
+    String loginUser = prin.getName();
+    User user = userMapper.selectByName(loginUser);
+    String cpuHand = janken.randomHand();
+    String result = janken.detResult(hand, cpuHand);
+    Match match = new Match();
+    match.setUser1(user.getId());
+    match.setUser2(id);
+    match.setUser1Hand(hand);
+    match.setUser2Hand(cpuHand);
+    matchMapper.insertMatchInfo(match);
+    model.addAttribute("match", match);
+    model.addAttribute("user1Hand", hand);
+    model.addAttribute("user2Hand", cpuHand);
+    model.addAttribute("result", result);
     return "match";
   }
 }
