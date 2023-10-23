@@ -37,7 +37,9 @@ public class JankenController {
   }
 
   @GetMapping("/match")
-  public String MatchPage(@RequestParam Integer id, ModelMap model) {
+  public String MatchPage(@RequestParam Integer id, ModelMap model, Principal prin) {
+    String loginUser = prin.getName();
+    model.addAttribute("username", loginUser);
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
     return "match";
@@ -49,6 +51,7 @@ public class JankenController {
     model.addAttribute("users", users);
     String loginUser = prin.getName();
     User user = userMapper.selectByName(loginUser);
+    model.addAttribute("username", loginUser);
     String cpuHand = janken.randomHand();
     String result = janken.detResult(hand, cpuHand);
     Match match = new Match();

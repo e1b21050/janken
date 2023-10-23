@@ -9,7 +9,10 @@
 <body>
   <a href="/logout">ログアウト</a>
   <h1>Match</h1>
-  <h2>ほんだ V.S. CPU</h2>
+  <h2>
+    <a th:text="${username} + ' V.S. '" />
+    <a th:each=" user : ${users}">[[${user.name}]]</a>
+  </h2>
   <div>
     <a th:href="@{/fight(id=${users.id},hand='Gu')}">ぐー</a>
     <a th:href="@{/fight(id=${users.id},hand='Ch')}">ちょき</a>
