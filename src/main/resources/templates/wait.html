@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>Janken</title>
+</head>
+
+<body>
+  <h2>相手の手を待ってます</h2>
+  <p>Hi <span sec:authentication="name" /></p>
+  <div th:if="${match}">
+    <h2>結果</h2>
+    Match: id [[${match.id}]] user1: [[${match.user1}]] user2: [[${match.user2}]] user1Hand: [[${match.user1Hand}]]
+    user2Hand: [[${match.user2Hand}]]
+    <a href="/janken">もどる</a>
+  </div>
+
+</html>

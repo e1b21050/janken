@@ -11,6 +11,9 @@ import org.apache.ibatis.annotations.Select;
 public interface MatchInfoMapper {
 
   @Select("SELECT * from matcheinfo")
-  ArrayList<Match> selectAllByMatchInfo();
+  ArrayList<MatchInfo> selectAllByMatchInfo();
+
+  @Insert("INSERT INTO matchinfo(user1,user2,user1Hand,isActive) VALUES (#{user1},#{user2},#{user1Hand},#{isActive});")
+  void insertMatchInfo(MatchInfo matchInfo);
 
 }

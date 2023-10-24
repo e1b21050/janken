@@ -48,7 +48,7 @@ public class Match {
     this.user2Hand = user2Hand;
   }
 
-  public boolean isActive() {
+  public boolean getActive() {
     return isActive;
   }
 

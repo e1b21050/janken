@@ -10,18 +10,13 @@
   <a href="/logout">ログアウト</a>
   <h1>Match</h1>
   <h2>
-    <a th:text="${username} + ' V.S. '" />
+    <a><span sec:authentication="name" /> V.S. </a>
     <a th:each=" user : ${users}">[[${user.name}]]</a>
   </h2>
   <div>
     <a th:href="@{/fight(id=${users.id},hand='Gu')}">ぐー</a>
     <a th:href="@{/fight(id=${users.id},hand='Ch')}">ちょき</a>
     <a th:href="@{/fight(id=${users.id},hand='Pa')}">ぱー</a>
-  </div>
-  <div th:if="${match}">
-    <div th:text="'あなたの手 ' + ${user1Hand}" />
-    <div th:text="'相手の手 ' + ${user2Hand}" />
-    <div th:text="'結果 ' + ${result}" />
   </div>
   <a href="/janken">もどる</a>
 

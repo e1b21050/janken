@@ -39,7 +39,7 @@ public class MatchInfo {
     this.user1Hand = user1Hand;
   }
 
-  public boolean isActive() {
+  public boolean getActive() {
     return isActive;
   }
 
