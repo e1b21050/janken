@@ -47,21 +47,13 @@ public class JankenAuthConfiguration {
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
 
-    // ユーザ名，パスワード，ロールを指定してbuildする
-    // このときパスワードはBCryptでハッシュ化されているため，{bcrypt}とつける
-    // ハッシュ化せずに平文でパスワードを指定する場合は{noop}をつける
-    // ハッシュ化されたパスワードを得るには，この授業のbashターミナルで下記のように末尾にユーザ名とパスワードを指定すると良い(要VPN)
-    // $ sshrun htpasswd -nbBC 10 user1 p@ss
-
-    UserDetails user1 = User.withUsername("user1")
+    UserDetails user1 = User.withUsername("ほんだ")
         .password("{bcrypt}$2y$10$E2VcwndEzQxGzBCgxseN8er1Zv0CHfLf2rCbuXzG8E5dhOxgstR7W").roles("USER").build();
-    UserDetails user2 = User.withUsername("user2")
-        .password("{bcrypt}$2y$10$E2VcwndEzQxGzBCgxseN8er1Zv0CHfLf2rCbuXzG8E5dhOxgstR7W").roles("USER").build();
-    UserDetails user3 = User.withUsername("ほんだ")
+    UserDetails user2 = User.withUsername("いがき")
         .password("{bcrypt}$2y$10$E2VcwndEzQxGzBCgxseN8er1Zv0CHfLf2rCbuXzG8E5dhOxgstR7W").roles("USER").build();
     // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
 
-    return new InMemoryUserDetailsManager(user1, user2, user3);
+    return new InMemoryUserDetailsManager(user1, user2);
   }
 
 }
