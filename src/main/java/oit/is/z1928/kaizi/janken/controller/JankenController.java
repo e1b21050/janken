@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import oit.is.z1928.kaizi.janken.model.User;
 import oit.is.z1928.kaizi.janken.model.UserMapper;
 import oit.is.z1928.kaizi.janken.model.Match;
+import oit.is.z1928.kaizi.janken.model.MatchInfo;
+import oit.is.z1928.kaizi.janken.model.MatchInfoMapper;
 import oit.is.z1928.kaizi.janken.model.MatchMapper;
 import oit.is.z1928.kaizi.janken.model.Janken;
 
@@ -22,6 +24,9 @@ public class JankenController {
 
   @Autowired
   MatchMapper matchMapper;
+
+  @Autowired
+  MatchInfoMapper matchInfoMapper;
 
   private Janken janken = new Janken();
 
@@ -52,18 +57,26 @@ public class JankenController {
     String loginUser = prin.getName();
     User user = userMapper.selectByName(loginUser);
     model.addAttribute("username", loginUser);
-    String cpuHand = janken.randomHand();
-    String result = janken.detResult(hand, cpuHand);
-    Match match = new Match();
-    match.setUser1(user.getId());
-    match.setUser2(id);
-    match.setUser1Hand(hand);
-    match.setUser2Hand(cpuHand);
-    // matchMapper.insertMatchInfo(match);
-    model.addAttribute("match", match);
-    model.addAttribute("user1Hand", hand);
-    model.addAttribute("user2Hand", cpuHand);
-    model.addAttribute("result", result);
-    return "match";
+
+    /*
+     * Match match = new Match();
+     * String cpuHand = janken.randomHand();
+     * match.setUser1(user.getId());
+     * match.setUser2(id);
+     * match.setUser1Hand(hand);
+     * match.setUser2Hand(cpuHand);
+     * match.setActive(true);
+     * matchMapper.insertMatch(match);
+     * model.addAttribute("match", match);
+     */
+
+    MatchInfo matchinfo = new MatchInfo();
+    matchinfo.setUser1(user.getId());
+    matchinfo.setUser2(id);
+    matchinfo.setUser1Hand(hand);
+    matchinfo.setActive(true);
+    matchInfoMapper.insertMatchInfo(matchinfo);
+    // model.addAttribute("matchinfos", matchinfo);
+    return "wait";
   }
 }

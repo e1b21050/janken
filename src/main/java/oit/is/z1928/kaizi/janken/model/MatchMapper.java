@@ -13,10 +13,7 @@ public interface MatchMapper {
   @Select("SELECT * from matches")
   ArrayList<Match> selectAllByMatchs();
 
-  /*
-   * @Insert("INSERT INTO matches( user1,user2,user1Hand,user2Hand) VALUES (#{user1},#{user2},#{user1Hand},#{user2Hand});"
-   * )
-   * void insertMatchInfo(Match match);
-   */
+  @Insert("INSERT INTO matches( user1,user2,user1Hand,user2Hand,isActive) VALUES (#{user1},#{user2},#{user1Hand},#{user2Hand},#{isActive});")
+  void insertMatch(Match match);
 
 }
