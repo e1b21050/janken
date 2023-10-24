@@ -59,7 +59,7 @@ public class JankenController {
     match.setUser2(id);
     match.setUser1Hand(hand);
     match.setUser2Hand(cpuHand);
-    matchMapper.insertMatchInfo(match);
+    // matchMapper.insertMatchInfo(match);
     model.addAttribute("match", match);
     model.addAttribute("user1Hand", hand);
     model.addAttribute("user2Hand", cpuHand);
