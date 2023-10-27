@@ -48,11 +48,11 @@ public class Match {
     this.user2Hand = user2Hand;
   }
 
-  public boolean getActive() {
+  public boolean getIsActive() {
     return isActive;
   }
 
-  public void setActive(boolean isActive) {
+  public void setIsActive(boolean isActive) {
     this.isActive = isActive;
   }
 
