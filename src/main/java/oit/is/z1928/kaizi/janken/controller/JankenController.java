@@ -4,7 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
-//import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,11 +31,14 @@ public class JankenController {
   private Janken janken = new Janken();
 
   @GetMapping("/janken")
+  @Transactional
   public String JankenPage(ModelMap model, Principal prin) {
     String loginUser = prin.getName();
     model.addAttribute("username", loginUser);
     ArrayList<User> users = userMapper.selectAllByUsersName();
     model.addAttribute("users", users);
+    ArrayList<MatchInfo> matchinfos = matchInfoMapper.selectByMatchInfo();
+    model.addAttribute("matchinfos", matchinfos);
     ArrayList<Match> matches = matchMapper.selectAllByMatchs();
     model.addAttribute("matches", matches);
     return "janken";
@@ -51,6 +54,7 @@ public class JankenController {
   }
 
   @GetMapping("/fight")
+  @Transactional
   public String FightPage(@RequestParam Integer id, @RequestParam String hand, ModelMap model, Principal prin) {
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
@@ -74,9 +78,8 @@ public class JankenController {
     matchinfo.setUser1(user.getId());
     matchinfo.setUser2(id);
     matchinfo.setUser1Hand(hand);
-    matchinfo.setActive(true);
     matchInfoMapper.insertMatchInfo(matchinfo);
-    // model.addAttribute("matchinfos", matchinfo);
+    model.addAttribute("matchinfo", matchinfo);
     return "wait";
   }
 }
