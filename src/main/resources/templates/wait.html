@@ -6,17 +6,13 @@
   <title>Janken</title>
   <script>
     window.onload = function () {
-      var sse = new EventSource('/fight');
+      var sse = new EventSource('/result');
       sse.onmessage = function (event) {
         console.log("sse.onmessage")
         console.log(event.data);
-        var match = JSON.parse(event.data);
-        if (match) {
-          console.log("match")
-          console.log(match)
-          var result = "Match: id " + match.id + " user1: " + match.user1 + " user2: " + match.user2 + " user1Hand: " + match.user1Hand + " user2Hand: " + match.user2Hand;
-          document.body.innerHTML = result + "<div><a href='/janken'>もどる</a></div>";
-        }
+        var result = JSON.parse(event.data);
+        var div = document.getElementById("resultlist");
+        div.innerHTML = "<h2>結果</h2><p>Match: id " + result.id + " user1: " + result.user1 + " user2: " + result.user2 + " user1Hand: " + result.user1Hand + " user2Hand: " + result.user2Hand + "</p><a href=" + "/janken" + ">もどる</a>";
       }
     }
   </script>
@@ -25,11 +21,6 @@
 <body>
   <h1>相手の手を待ってます</h1>
   <p>Hi <span sec:authentication="name" /></p>
-  <div th:if="${match}">
-    <h2>結果</h2>
-    Match: id [[${match.id}]] user1: [[${match.user1}]] user2: [[${match.user2}]] user1Hand: [[${match.user1Hand}]]
-    user2Hand: [[${match.user2Hand}]]
-    <div><a href="/janken">もどる</a></div>
-  </div>
+  <div id="resultlist" />
 
 </html>

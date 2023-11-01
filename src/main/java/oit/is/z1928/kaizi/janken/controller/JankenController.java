@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -62,30 +62,23 @@ public class JankenController {
     User user = userMapper.selectByName(loginUser);
 
     MatchInfo matchinfo = new MatchInfo();
-    Match match = new Match();
-    if (matchInfoMapper.selectById(user.getId()) == null) {
-      matchinfo.setUser1(user.getId());
-      matchinfo.setUser2(id);
-      matchinfo.setUser1Hand(hand);
-      matchInfoMapper.insertMatchInfo(matchinfo);
-      model.addAttribute("matchinfo", matchinfo);
-    } else {
-      match.setUser1(user.getId());
-      match.setUser2(id);
-      match.setUser1Hand(hand);
-      match.setUser2Hand(matchInfoMapper.selectByUser2(user.getId()).getUser1Hand());
-      matchMapper.insertMatch(match);
-      final Match match2 = asyncKekka.syncShowMatch();
-      model.addAttribute("match", match2);
-      fight();
-      matchMapper.updateMatch(match);
+    matchinfo = matchInfoMapper.selectById(user.getId());
+    if (matchinfo != null) {
+      Match match = new Match();
+      match = asyncKekka.setMatches(user.getId(), id, matchinfo.getUser1Hand(), hand);
       matchInfoMapper.updateMatchInfo(matchinfo);
+    } else {
+      MatchInfo matchinfo2 = new MatchInfo();
+      matchinfo2.setUser1(user.getId());
+      matchinfo2.setUser2(id);
+      matchinfo2.setUser1Hand(hand);
+      matchInfoMapper.insertMatchInfo(matchinfo2);
     }
 
     return "wait";
   }
 
-  @PostMapping("/fight")
+  @GetMapping("/result")
   public SseEmitter fight() {
     SseEmitter emitter = new SseEmitter();
     asyncKekka.asyncShowKekka(emitter);
