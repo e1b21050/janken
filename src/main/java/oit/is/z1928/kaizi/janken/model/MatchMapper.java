@@ -24,4 +24,6 @@ public interface MatchMapper {
   @Update("UPDATE matches SET isActive = false")
   void updateMatch(Match match);
 
+  @Update("UPDATE matches SET isActive = false WHERE user1=#{user1} and user2=#{user2} and isActive = true")
+  void updateMatchByusers(int user1, int user2);
 }
